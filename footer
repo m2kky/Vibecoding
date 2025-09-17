@@ -1,0 +1,173 @@
+social media section from anemia :
+
+index.tsx : 
+import PropTypes from "prop-types";
+import React from "react";
+import property1Hover from "./property-1-hover.svg";
+
+interface Props {
+  property1: "hover" | "default";
+}
+
+export const Component = ({ property1 }: Props): JSX.Element => {
+  return (
+    <>
+      {property1 === "default" && (
+        <div className="relative w-60 h-[129px] bg-black">
+          <img className="absolute w-12 h-12 top-[41px] left-24" alt="Vector" />
+        </div>
+      )}
+
+      {property1 === "hover" && (
+        <img
+          className="absolute w-[262px] h-[141px] top-0 left-0"
+          alt="Property hover"
+          src={property1Hover}
+        />
+      )}
+    </>
+  );
+};
+
+Component.propTypes = {
+  property1: PropTypes.oneOf(["hover", "default"]),
+};
+
+
+propertydefault.tsx :
+"use client";
+
+import React from "react";
+import { Component } from "../../..";
+
+export const PropertyDefault = (): JSX.Element => {
+  return <Component property1="default" />;
+};
+
+tailwind.config.js :
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+tailwind.css : 
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --animate-spin: spin 1s linear infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s var(--animation-delay, 0s) ease forwards;
+}
+
+.animate-fade-up {
+  animation: fade-up 1s var(--animation-delay, 0s) ease forwards;
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) infinite linear;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 8s infinite;
+}
+
+.animate-spin {
+  animation: var(--animate-spin);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes image-glow {
+  0% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1);
+  }
+
+  10% {
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99);
+  }
+
+  to {
+    opacity: 0.4;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  90%,
+  to {
+    background-position: calc(-100% - var(--shimmer-width)) 0;
+  }
+
+  30%,
+  60% {
+    background-position: calc(100% + var(--shimmer-width)) 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
